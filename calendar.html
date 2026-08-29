@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caffeinetor - Calendar</title>
+
+    <style>
+        body {
+            background-color: #dfffe8;
+            font-family: "Poppins", sans-serif;
+            color: #2e6f4e;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .day {
+            background: #f6fff9;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 80px;
+        }
+
+	button {
+            background: #b8f5cf;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 18px;
+            color: #2e6f4e;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #a2f0c3;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <h2>Your Calendar</h2>
+
+    <div class="calendar" id="cal"></div>
+
+    <button onclick="location.href='/info_page'">Next → Info Page</button>
+
+    <script>
+        let entries = JSON.parse(localStorage.getItem("entries")) || [];
+
+        let cal = document.getElementById("cal");
+
+        entries.forEach(e => {
+            let intensity = Math.min(e.totalCaf / 300, 1);
+            let color = `rgba(46, 111, 78, ${intensity})`;
+
+            cal.innerHTML += `
+                <div class="day" style="background:${color}">
+                    <strong>${e.date}</strong><br>
+                    ${e.totalCaf} mg<br>
+                    Mood: ${e.mood}<br>
+                    Sleep: ${e.sleep}h
+                </div>
+            `;
+        });
+    </script>
+
+</body>
+</html>

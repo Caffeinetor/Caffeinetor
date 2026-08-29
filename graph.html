@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caffeinetor - Graphs</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background-color: #dfffe8;
+            font-family: "Poppins", sans-serif;
+            color: #2e6f4e;
+            padding: 40px;
+            text-align: center;
+        }
+
+        canvas {
+            background: #f6fff9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        button {
+            background: #b8f5cf;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 18px;
+            color: #2e6f4e;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #a2f0c3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Your Graphs</h2>
+
+    <canvas id="cafChart"></canvas>
+    <canvas id="moodChart"></canvas>
+    <canvas id="sleepChart"></canvas>
+
+    <button onclick="location.href='/calendar'">Next → Calendar</button>
+
+    <script>
+        let entries = JSON.parse(localStorage.getItem("entries")) || [];
+
+        let dates = entries.map(e => e.date);
+        let caffeine = entries.map(e => e.totalCaf);
+        let mood = entries.map(e => e.mood);
+        let sleep = entries.map(e => e.sleep);
+
+        new Chart(document.getElementById("cafChart"), {
+            type: "line",
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: "Caffeine (mg)",
+                    data: caffeine,
+                    borderColor: "#2e6f4e",
+                    backgroundColor: "#b8f5cf"
+                }]
+            }
+        });
+
+        new Chart(document.getElementById("moodChart"), {
+            type: "bar",
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: "Mood",
+                    data: mood,
+                    backgroundColor: "#b8f5cf"
+                }]
+            }
+        });
+
+        new Chart(document.getElementById("sleepChart"), {
+            type: "bar",
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: "Sleep (hours)",
+                    data: sleep,
+                    backgroundColor: "#a2f0c3"
+                }]
+            }
+        });
+    </script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

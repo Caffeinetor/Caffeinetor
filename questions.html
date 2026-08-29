@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Caffeinetor - Questions</title>
+
+  <style>
+    body {
+        background-color: #dfffe8;
+        font-family: "Poppins", sans-serif;
+        color: #2e6f4e;
+        padding: 40px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: 1px solid #9cd8b8;
+        background: #f6fff9;
+    }
+
+    button {
+        background: #b8f5cf;
+        border: none;
+        padding: 15px;
+        width: 100%;
+        border-radius: 12px;
+        font-size: 18px;
+        color: #2e6f4e;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #a2f0c3;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        background: #f6fff9;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #c8efd8;
+    }
+
+    th {
+        background: #b8f5cf;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Caffeine & Mood Tracker</h2>
+
+  <input id="age" placeholder="Age">
+  <input id="brand" placeholder="Brands (Monster, Redbull)">
+  <input id="caffeine" placeholder="Caffeine mg per brand (160, 80)">
+  <input id="cans" placeholder="Cans per brand (2, 1)">
+  <input id="mood" placeholder="Mood (1–10)">
+  <input id="sleep" placeholder="Hours slept">
+
+  <button onclick="addEntry()">Add Entry</button>
+
+  <h3 id="totalCaffeine">Total caffeine: 0 mg</h3>
+  <h3 id="brandCount">How many brands: 0</h3>
+
+  <table>
+    <thead id="tableHead">
+      <tr>
+        <th>Date</th>
+        <th>Age</th>
+        <th>Total caffeine</th>
+        <th>Mood</th>
+        <th>Hours slept</th>
+      </tr>
+    </thead>
+    <tbody id="entryTable"></tbody>
+  </table>
+
+<button onclick="clearData()" style="
+    background:#ffb8b8;
+    border:none;
+    padding:15px;
+    width:100%;
+    border-radius:12px;
+    font-size:18px;
+    color:#6f2e2e;
+    cursor:pointer;
+    margin-top:10px;
+    transition:0.2s;
+">
+    Reset Data ✧
+</button>
+
+
+<!-- NEXT PAGE BUTTON -->
+<form action="/graph" method="get">
+    <button style="
+        background:#b8f5cf;
+        border:none;
+        padding:15px;
+        width:100%;
+        border-radius:12px;
+        font-size:18px;
+        color:#2e6f4e;
+        cursor:pointer;
+        margin-top:30px;
+        transition:0.2s;
+    ">Next →</button>
+</form>
+
+
+
+
+<div id="confirmModal" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+">
+    <div style="
+        background: #fefefe;
+        padding: 25px;
+        border-radius: 15px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        color: #2e6f4e;
+        font-family: Poppins, sans-serif;
+    ">
+        <h3 style="margin-bottom: 15px;">Are you sure? ✧</h3>
+        <p style="margin-bottom: 20px;">This will delete ALL your data.</p>
+
+        <button onclick="confirmDelete()" style="
+            background:#ffb8b8;
+            border:none;
+            padding:12px;
+            width:100%;
+            border-radius:10px;
+            font-size:16px;
+            color:#6f2e2e;
+            cursor:pointer;
+            margin-bottom:10px;
+        ">Yes, delete ✧</button>
+
+        <button onclick="closeModal()" style="
+            background:#b8f5cf;
+            border:none;
+            padding:12px;
+            width:100%;
+            border-radius:10px;
+            font-size:16px;
+            color:#2e6f4e;
+            cursor:pointer;
+        ">Cancel</button>
+    </div>
+</div>
+
+
+
+
+<script>
+let entries = [];
+let maxBrands = 0;
+
+function addEntry() {     
+    let today = new Date().toISOString().split("T")[0];
+
+    let age = Number(document.getElementById("age").value);
+    let brands = document.getElementById("brand").value.split(",").map(b => b.trim());
+    let caffeineList = document.getElementById("caffeine").value.split(",").map(n => Number(n.trim()));
+    let cansList = document.getElementById("cans").value.split(",").map(n => Number(n.trim()));
+    let mood = Number(document.getElementById("mood").value);
+    let sleep = Number(document.getElementById("sleep").value);
+
+    let totalCaf = 0;
+    for (let i = 0; i < caffeineList.length; i++) {
+        totalCaf += caffeineList[i] * (cansList[i] || 1);
+    }
+
+    // COMPLEX ENTRY (questions page)
+    let stored = JSON.parse(localStorage.getItem("entries")) || [];
+    stored.push({
+        date: today,
+        age: age,
+        brands: brands,
+        caffeineList: caffeineList,
+        cansList: cansList,
+        totalCaf: totalCaf,
+        mood: mood,
+        sleep: sleep
+    });
+    localStorage.setItem("entries", JSON.stringify(stored));
+
+    // SIMPLE ENTRY (graphs + calendar)
+    let graphEntries = JSON.parse(localStorage.getItem("graphEntries")) || [];
+    graphEntries.push({
+        date: today,
+        totalCaf: totalCaf,
+        mood: mood,
+        sleep: sleep
+    });
+    localStorage.setItem("graphEntries", JSON.stringify(graphEntries));
+
+    // UPDATE DISPLAY
+    document.getElementById("totalCaffeine").innerText = "Total caffeine: " + totalCaf + " mg";
+    document.getElementById("brandCount").innerText = "How many brands: " + brands.length;
+
+
+
+
+
+    // UPDATE TABLE DATA
+    entries = stored;
+
+    if (brands.length > maxBrands) {
+        maxBrands = brands.length;
+        updateTableHead();
+    }
+
+    updateTable();
+    updateTotals();
+
+    }
+
+function updateTableHead() {
+    let head = `
+        <tr>
+          <th>Date</th>
+          <th>Age</th>
+    `;
+
+    for (let i = 0; i < maxBrands; i++) {
+        head += `
+          <th>Brand ${i+1}</th>
+          <th>Caffeine ${i+1} (mg)</th>
+          <th>Cans ${i+1}</th>
+        `;
+    }
+
+    head += `
+          <th>Total caffeine</th>
+          <th>Mood</th>
+          <th>Hours slept</th>
+        </tr>
+    `;
+
+    document.getElementById("tableHead").innerHTML = head;
+}
+
+function updateTable() {
+    let table = document.getElementById("entryTable");
+    table.innerHTML = "";
+
+    for (let i = 0; i < entries.length; i++) {
+        let row = `
+          <tr>
+            <td>${entries[i].date}</td>
+            <td>${entries[i].age}</td>
+        `;
+
+        for (let j = 0; j < maxBrands; j++) {
+            row += `
+              <td>${entries[i].brands[j] || "-"}</td>
+              <td>${entries[i].caffeineList[j] || "-"}</td>
+              <td>${entries[i].cansList[j] || "-"}</td>
+            `;
+        }
+
+        row += `
+            <td>${entries[i].totalCaf}</td>
+            <td>${entries[i].mood}</td>
+            <td>${entries[i].sleep}</td>
+          </tr>
+        `;
+
+        table.innerHTML += row;
+    }
+}
+
+function updateTotals() {
+    let total = 0;
+    let brandSet = new Set();
+
+    for (let i = 0; i < entries.length; i++) {
+        total += entries[i].totalCaf;
+        entries[i].brands.forEach(b => brandSet.add(b));
+    }
+
+    document.getElementById("totalCaffeine").innerText =
+        "Total caffeine: " + total + " mg";
+
+    document.getElementById("brandCount").innerText =
+        "How many brands: " + brandSet.size;
+}
+
+
+
+function clearData() {
+    document.getElementById("confirmModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("confirmModal").style.display = "none";
+}
+
+function confirmDelete() {
+    localStorage.removeItem("entries");
+    localStorage.removeItem("graphEntries");
+
+    alert("All data deleted!");
+    location.reload();
+}
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caffeinetor - Home Dashboard</title>
+
+    <style>
+        body {
+            background-color: #dfffe8;
+            font-family: "Poppins", sans-serif;
+            color: #2e6f4e;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* NAV BAR */
+        .navbar {
+            background-color: #b8f5cf;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #a0e8ba;
+        }
+
+        .nav-btn {
+            background-color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #2e6f4e;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #dfffe8;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            padding: 40px;
+        }
+
+        .widget {
+            background-color: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .widget-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        /* MINI CALENDAR */
+        .mini-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .mini-day {
+            background-color: #e8fff1;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        /* ARTICLES */
+        .articles {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .article-card {
+            background-color: #e8fff1;
+            padding: 20px;
+            border-radius: 15px;
+            transition: 0.2s;
+        }
+
+        .article-card:hover {
+            background-color: #dfffe8;
+        }
+
+        /* VIDEOS */
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+        }
+
+        /* ABOUT */
+        .about {
+            background-color: #e8fff1;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+<style>
+@keyframes slideIn {
+    from {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+</style>
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV BAR -->
+    <div class="navbar">
+        <button class="nav-btn" onclick="location.href='/questions'">Share New Day</button>
+        <button class="nav-btn" onclick="location.href='/calendar'">My Calendar</button>
+        <button class="nav-btn" onclick="location.href='/graph'">My Graph</button>
+        <button class="nav-btn" onclick="location.href='/info_page'">Caffeinetor</button>
+    </div>
+
+    <div class="container">
+
+        <!-- MINI CALENDAR WIDGET -->
+        <div class="widget">
+            <div class="widget-title">Your Week Overview</div>
+            <div class="mini-calendar" id="miniCal"></div>
+        </div>
+
+
+<div id="auto-widget" style="
+    background:#f6fff9;
+    padding:20px;
+    border-radius:15px;
+    border:1px solid #c8efd8;
+    margin:20px 0;
+    animation: slideIn 0.6s ease-out;
+    min-height:120px;
+">
+    <div id="widget-content" style="
+        font-size:18px;
+        color:#2e6f4e;
+        font-weight:600;
+    ">
+        Loading...
+    </div>
+</div>
+
+
+        <!-- ARTICLES WIDGET -->
+<div class="widget" style="
+    background:#f6fff9;
+    padding:20px;
+    border-radius:15px;
+    border:1px solid #c8efd8;
+    margin-top:30px;
+">
+    <div class="widget-title" style="
+        font-size:20px;
+        font-weight:600;
+        color:#2e6f4e;
+        margin-bottom:15px;
+        text-align:center;
+    ">
+        Articles For You
+
+	<div class="widget" style="
+    animation: slideIn 0.6s ease-out;
+">
+
+
+
+
+    </div>
+
+    <div class="articles">
+
+        <!-- ENERGY -->
+        <a href="https://cs.wikipedia.org/wiki/Energetick%C3%BD_n%C3%A1poj" style="
+            display:block;
+            background:#ffffff;
+            padding:15px;
+            margin:10px 0;
+            border-radius:12px;
+            color:#2e6f4e;
+            text-decoration:none;
+            font-size:16px;
+            border:1px solid #c8efd8;
+        ">
+            Energy Drinks Wiki
+            <span style="
+                background:#ff9f9f;
+                color:white;
+                padding:4px 8px;
+                border-radius:8px;
+                font-size:12px;
+                margin-left:10px;
+            ">⚡ Energy</span>
+        </a>
+
+        <!-- SLEEP -->
+        <a href="https://www.sleepfoundation.org/teens-and-sleep" style="
+            display:block;
+            background:#ffffff;
+            padding:15px;
+            margin:10px 0;
+            border-radius:12px;
+            color:#2e6f4e;
+            text-decoration:none;
+            font-size:16px;
+            border:1px solid #c8efd8;
+        ">
+            Teen Sleep Guide
+            <span style="
+                background:#b8d8ff;
+                color:white;
+                padding:4px 8px;
+                border-radius:8px;
+                font-size:12px;
+                margin-left:10px;
+            ">😴 Sleep</span>
+        </a>
+
+        <!-- FACTS -->
+        <a href="https://www.healthforteens.co.uk/lifestyle/nutrition-diet/energy-drinks-just-the-facts/" style="
+            display:block;
+            background:#ffffff;
+            padding:15px;
+            margin:10px 0;
+            border-radius:12px;
+            color:#2e6f4e;
+            text-decoration:none;
+            font-size:16px;
+            border:1px solid #c8efd8;
+        ">
+            Energy Drink Facts
+            <span style="
+                background:#b8f5cf;
+                color:white;
+                padding:4px 8px;
+                border-radius:8px;
+                font-size:12px;
+                margin-left:10px;
+            ">📊 Facts</span>
+        </a>
+
+        <!-- HEALTH -->
+        <a href="https://www.niddk.nih.gov/health-information/weight-management/take-charge-health-guide-teenagers" style="
+            display:block;
+            background:#ffffff;
+            padding:15px;
+            margin:10px 0;
+            border-radius:12px;
+            color:#2e6f4e;
+            text-decoration:none;
+            font-size:16px;
+            border:1px solid #c8efd8;
+        ">
+            Healthy Habits
+            <span style="
+                background:#c8efd8;
+                color:white;
+                padding:4px 8px;
+                border-radius:8px;
+                font-size:12px;
+                margin-left:10px;
+            ">🌿 Health</span>
+        </a>
+
+    </div>
+</div>
+
+
+        <!-- VIDEOS -->
+        <div class="widget">
+            <div class="widget-title">Recommended Videos</div>
+
+
+            <div class="videos">
+    <a href="https://www.youtube.com/watch?v=I5SOx9VTrjk" target="_blank">
+        <img src="https://img.youtube.com/vi/I5SOx9VTrjk/hqdefault.jpg" 
+             style="width:100%; border-radius:15px;">
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=LH2qNZtxqMU" target="_blank">
+        <img src="https://img.youtube.com/vi/LH2qNZtxqMU/hqdefault.jpg" 
+             style="width:100%; border-radius:15px;">
+    </a>
+</div>
+
+
+        <!-- ABOUT SECTION -->
+        <div class="about">
+            <h3>About Caffeinetor Project</h3>
+            <p>This dashboard tracks your caffeine, mood, and sleep to help you understand your daily habits.</p>
+            <p>Built with pastel green aesthetic, smooth UI, and clean navigation.</p>
+            <p>Made by 13 year old for people who want to keep tracking their caffeine level💚🔥</p>
+	    <p> Thank you for trying or using this web - LH<3</p>
+        </div>
+
+    </div>
+
+    <script>
+        let entries = JSON.parse(localStorage.getItem("entries")) || [];
+        let miniCal = document.getElementById("miniCal");
+
+        let lastSeven = entries.slice(-7);
+
+        lastSeven.forEach(e => {
+            let intensity = Math.min(e.totalCaf / 300, 1);
+            let color = `rgba(46, 111, 78, ${intensity})`;
+
+            miniCal.innerHTML += `
+                <div class="mini-day" style="background:${color}">
+                    <strong>${e.date}</strong><br>
+                    ${e.totalCaf} mg<br>
+                    Mood: ${e.mood}<br>
+                    Sleep: ${e.sleep}h
+                </div>
+            `;
+        });
+    </script>
+
+
+
+<script>
+const dailyTips = [
+  "Drink water before caffeine ✨",
+  "Avoid energy drinks after 6 PM ⚡🌿",
+  "Stretch your back for 30 seconds 🌿",
+  "Try a 10-minute walk today 🚶‍♂️",
+  "Sleep at least 8 hours a day 😴",
+  "Eat something with protein today 🍳",
+  "Take 3 deep breaths ✨"
+];
+
+let today = new Date();
+let dayNumber = today.getDate();
+let tipIndex = dayNumber % dailyTips.length;
+let todayTip = dailyTips[tipIndex];
+
+const slides = [
+  `<div>Daily Tip ✨</div>
+   <div style="margin-top:10px; font-size:16px;">
+   ${todayTip}
+   </div>`,
+
+  `<div>Did you know?</div>
+   <div style="margin-top:10px; font-size:16px;">
+   30–50% of adolescents are reported to consume energy drink.
+   </div>`,
+
+  `<div>Remember!</div>
+   <div style="margin-top:10px; font-size:16px;">
+   Go to sleep before 23:00 ✨
+   </div>`,
+
+  `<div>Funfact</div>
+   <div style="margin-top:10px; font-size:16px;">
+   The first energy drink was Lipovitan D, introduced in Japan in 1962.🔥
+   </div>`
+
+
+];
+
+let index = 0;
+
+function updateWidget() {
+  const widget = document.getElementById("widget-content");
+  widget.innerHTML = slides[index];
+
+  const box = document.getElementById("auto-widget");
+  box.style.animation = "none";
+  void box.offsetWidth;
+  box.style.animation = "slideIn 0.6s ease-out";
+
+  index = (index + 1) % slides.length;
+}
+
+updateWidget();
+setInterval(updateWidget, 20000);
+</script>
+
+
+
+<style>
+@keyframes slideIn {
+    from { transform: translateY(30px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+</style>
+
+
+</body>
+</html>
